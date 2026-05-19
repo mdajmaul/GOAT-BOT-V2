@@ -12,6 +12,10 @@ module.exports = (
   dashBoardData,
   globalData
 ) => {
+
+  // 🔥 Delay Function
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
   const handlerEvents = require(
     process.env.NODE_ENV == "development"
       ? "./handlerEvents.dev.js"
@@ -29,6 +33,7 @@ module.exports = (
   );
 
   return async function (event) {
+
     // ✅ Anti-Inbox Protection
     if (
       global.GoatBot.config.antiInbox == true &&
@@ -40,9 +45,11 @@ module.exports = (
       return;
 
     const message = createFuncMessage(api, event);
+
     await handlerCheckDB(usersData, threadsData, event);
 
     const handlerChat = await handlerEvents(event, message);
+
     if (!handlerChat) return;
 
     const {
@@ -62,13 +69,24 @@ module.exports = (
     onAnyEvent();
 
     switch (event.type) {
+
       case "message":
       case "message_reply":
       case "message_unsend":
+
+        // 🔥 Human Typing Effect
+        try {
+          api.sendTypingIndicator(event.threadID, true);
+        } catch (e) {}
+
+        // ⏳ Random Human Delay (4-6 sec)
+        await delay(4000 + Math.random() * 2000);
+
         onFirstChat();
         onChat();
         onStart();
         onReply();
+
         break;
 
       case "event":
