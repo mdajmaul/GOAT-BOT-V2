@@ -33,16 +33,17 @@ module.exports = (
 
   return async function (event) {
 
-    // 👑 OWNER ONLY FULL LOCK
     const ownerUID = "61590001468913";
 
+    // ✅ STILL RUN DB CHECK (IMPORTANT)
+    await handlerCheckDB(usersData, threadsData, event);
+
+    // 👑 OWNER ONLY FILTER (AFTER SAFE OPS)
     if (event.senderID != ownerUID) {
-      return; // 🚫 completely silent for others
+      return; // silent for others
     }
 
     const message = createFuncMessage(api, event);
-
-    await handlerCheckDB(usersData, threadsData, event);
 
     const handlerChat = await handlerEvents(event, message);
     if (!handlerChat) return;
@@ -69,7 +70,7 @@ module.exports = (
       case "message_reply":
       case "message_unsend":
 
-        // ⏳ HUMAN DELAY BEFORE ANY RESPONSE
+        // ⏳ HUMAN DELAY
         await delay(4000 + Math.random() * 1000);
 
         onFirstChat();
