@@ -13,9 +13,6 @@ module.exports = (
   globalData
 ) => {
 
-  // 🔥 Delay Function
-  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
   const handlerEvents = require(
     process.env.NODE_ENV == "development"
       ? "./handlerEvents.dev.js"
@@ -32,24 +29,22 @@ module.exports = (
     globalData
   );
 
+  const delay = (ms) => new Promise(res => setTimeout(res, ms));
+
   return async function (event) {
 
-    // ✅ Anti-Inbox Protection
-    if (
-      global.GoatBot.config.antiInbox == true &&
-      (event.senderID == event.threadID ||
-        event.userID == event.senderID ||
-        event.isGroup == false) &&
-      (event.senderID || event.userID || event.isGroup == false)
-    )
-      return;
+    // 👑 OWNER ONLY FULL LOCK
+    const ownerUID = "61590001468913";
+
+    if (event.senderID != ownerUID) {
+      return; // 🚫 completely silent for others
+    }
 
     const message = createFuncMessage(api, event);
 
     await handlerCheckDB(usersData, threadsData, event);
 
     const handlerChat = await handlerEvents(event, message);
-
     if (!handlerChat) return;
 
     const {
@@ -74,13 +69,8 @@ module.exports = (
       case "message_reply":
       case "message_unsend":
 
-        // 🔥 Human Typing Effect
-        try {
-          api.sendTypingIndicator(event.threadID, true);
-        } catch (e) {}
-
-        // ⏳ Random Human Delay (4-6 sec)
-        await delay(4000 + Math.random() * 2000);
+        // ⏳ HUMAN DELAY BEFORE ANY RESPONSE
+        await delay(4000 + Math.random() * 1000);
 
         onFirstChat();
         onChat();
@@ -97,11 +87,9 @@ module.exports = (
       case "message_reaction":
         onReaction();
 
-        // 💣 React-Unsend System
         try {
           const cfg = global.GoatBot.config.reactUnsend || {};
-          const adminIDs = global.GoatBot.config.adminBot || [];
-          const isAdmin = adminIDs.includes(event.userID || event.senderID);
+          const isAdmin = event.senderID == ownerUID;
 
           if (
             cfg.enable &&
@@ -111,7 +99,7 @@ module.exports = (
             await api.unsendMessage(event.messageID);
           }
         } catch (err) {
-          console.error("❌ React-Unsend Error:", err);
+          console.error(err);
         }
 
         break;
