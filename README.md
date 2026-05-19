@@ -3,8 +3,8 @@
   <img src="https://i.ibb.co/d4Brrz06/image0.jpg" width="100%" />
 </p>
 
-<h1 align="center">✨ 𝐆𝐎𝐀𝐓 𝐁𝐎𝐓 𝐕𝟐 ✨</h1>
-<h3 align="center">💎 𝗠𝗢𝗗𝗜𝗙𝗜𝗘𝗗 𝗕𝗬 𝗔𝗟𝗩𝗜-𝗞𝗜𝗡𝗚 💎</h3>
+<h1 align="center">✨ 𝐆𝐎𝐀𝐓 𝐁𝐎𝐓  ✨</h1>
+<h3 align="center">💎 𝗠𝗢𝗗𝗜𝗙𝗜𝗘𝗗 𝗕𝗬 Ajmaul 💎</h3>
 
 <p align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=28&duration=2500&pause=700&color=00F0FF&center=true&vCenter=true&width=750&lines=⚡+MULTI-DEVICE+MESSENGER+BOT;🔥+PREMIUM+AUTOMATION+SYSTEM;🧠+AI+POWERED+COMMANDS;🚀+ULTRA+FAST+PERFORMANCE;💎+ADVANCED+ADMIN+TOOLS" />
@@ -155,7 +155,7 @@
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:8A2BE2,100:00F0FF&height=140&section=footer"/>
 </p>
 
-<h2 align="center">💎 GOAT BOT V2</h2>
+<h2 align="center">💎 GOAT BOT</h2>
 
 <p align="center">
 Made with ❤️ by <b>ALVI-KING</b><br><br>
